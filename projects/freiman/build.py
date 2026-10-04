@@ -148,7 +148,7 @@ def fig4():
 
 
 FIGS = {
-    "1": (fig1, "גרף 1", "מגרש ליד תחנת סאות'וורק בלונדון. אותו מגרש, שני מחירים, אותו קנה מידה. מקור: מחקרו של דון ריילי, כפי שמובא בספרות על מימון תחבורה ציבורית."),
+    "1": (fig1, "גרף 1", "אותו מגרש ליד תחנת סאות'וורק בלונדון, שני מחירים, אותו קנה מידה. מקור: המחקר של דון ריילי."),
     "2": (fig2, "גרף 2", "ההחלטות שהזיזו את פריימן, על ציר זמן בקנה מידה. מהחלטת הממשלה ועד תמ\"א 70 עברו חמישה חודשים."),
     "3": (fig3, "גרף 3", "איחוד וחלוקה, בפשטות. המיקום של החלקה שקניתם לא קובע את המיקום של מגרש התמורה. איור להמחשה בלבד."),
     "4": (fig4, "גרף 4", "כמה קרקע שקולה ליחידת דיור אחת, לפי צפיפות של 15 יחידות לדונם ברוטו. בחלקה עם הפקעה צריך יותר."),
@@ -195,6 +195,8 @@ for line in md.splitlines():
     m = re.match(r"(\d+)\. (.*)", t)
     if m:
         lst_tag = "ol"; lst.append(m.group(2)); continue
+    if t.startswith("- "):
+        lst_tag = "ul"; lst.append(t[2:]); continue
     if t.startswith("*") and t.endswith("*") and not t.startswith("**"):
         flush(); body.append(f'<p class="disclaimer">{t.strip("*")}</p>'); continue
     flush(); body.append(f"<p>{inline(t)}</p>")
@@ -242,7 +244,7 @@ p {{ margin: 0 0 1.1rem; }}
 a {{ color: var(--metro-ink); text-decoration-thickness: 2px; text-underline-offset: 3px; }}
 a:focus-visible {{ outline: 2px solid var(--metro); outline-offset: 2px; }}
 strong {{ font-weight: 700; }}
-ol {{ padding-inline-start: 1.4rem; margin: 0 0 1.2rem; display: grid; gap: .5rem; }}
+ol, ul {{ padding-inline-start: 1.4rem; margin: 0 0 1.2rem; display: grid; gap: .5rem; }}
 ol li::marker {{ font-family: var(--font-display); font-weight: 700; color: var(--metro-ink); }}
 figure {{ margin: 2rem 0; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem; }}
 .fig-scroll {{ overflow-x: auto; }}
